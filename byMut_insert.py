@@ -60,9 +60,11 @@ with open('sample_meta.csv') as f:
         else:
             mutations[line[0].split('_')[1]] = line[2]
 
+
+
 num = {}
 cellID = ""
-keys = {}
+mutKeys = {}
 count = 0
 start_time = time.time()
 with open(sys.argv[1]) as f:
@@ -72,31 +74,27 @@ with open(sys.argv[1]) as f:
         if header:
             cellID = line
             for i in range(1, len(cellID)):
-                keys[cellID[i]] = cellTypes[cellID[i]]+"-"+mutations[cellID[i].split('_')[1]]
-
-                if keys[cellID[i]] in num:
-                    num[keys[cellID[i]]] += 1
+                mutKeys[cellID[i]] = mutations[cellID[i].split('_')[1]]
+                if mutKeys[cellID[i]] in num:
+                    num[mutKeys[cellID[i]]] += 1
                 else:
-                    num[keys[cellID[i]]] = 1
-
+                    num[mutKeys[cellID[i]]] = 1
             header = False
         else:
-            totals = {}
+            mutTotals = {}
             loc = line[0].split("-")
             g = int(loc[1]) + g0[loc[0]]
             for i in range(1, len(cellID)):
                 v = int(line[i])  
-                key = keys[cellID[i]]
-                if key in totals:
-                    totals[key] += v
+                mutKey = mutKeys[cellID[i]]
+                if mutKey in mutTotals:
+                    mutTotals[mutKey] += v
                 else:
-                    totals[key] = v
-                
-            for key in totals:
-                insert = {"g": g, "cell": key.split('-')[0], "mutation":key.split('-')[1], "v": totals[key]/num[key]}
-                x = collection.insert_one(insert)
-                #print(insert)
+                    mutTotals[mutKey] = v
 
+            for key in mutTotals:
+                insert = {"g": g, "mutation":key, "v": mutTotals[key]/num[key]}
+                x = collection.insert_one(insert)
         count += 1
         if count % 10000 == 0:
             print("Time at " + str(count) + "th loci: %s sec" %(round(time.time() - start_time, 2)))
