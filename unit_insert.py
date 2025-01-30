@@ -63,6 +63,7 @@ with open('sample_meta.csv') as f:
 num = {}
 cellID = ""
 keys = {}
+count = 0
 start_time = time.time()
 with open(sys.argv[1]) as f:
     file = csv.reader(f)
@@ -90,6 +91,9 @@ with open(sys.argv[1]) as f:
                     totals[key] = v
             for key in totals:
                 insert = {"g": g, "cell": key.split('-')[0], "mutation":key.split('-')[1], "v": totals[key]/num[key]}
-                #x = collection.insert_one(insert)
+                x = collection.insert_one(insert)
+        count += 1
+        if count % 100000 == 0:
+            print("Time at " + count + " loci: %s sec" %(round(time.time() - start_time, 2)))
 
 print("Time:  %s sec" %(round(time.time() - start_time, 2)))
