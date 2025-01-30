@@ -90,6 +90,6 @@ with open(sys.argv[1]) as f:
                     totals[key] = v
             for key in totals:
                 insert = {"g": g, "cell": key.split('-')[0], "mutation":key.split('-')[1], "v": totals[key]/num[key]}
-                x = collection.insert_one(insert)
+                #x = collection.insert_one(insert)
 
-print("Time:  %s sec" %((time.time() - start_time)))
+print("Time:  %s sec" %(round(time.time() - start_time, 2)))
