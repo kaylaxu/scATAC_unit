@@ -93,8 +93,9 @@ with open(sys.argv[1]) as f:
                     mutTotals[mutKey] = v
 
             for key in mutTotals:
-                insert = {"g": g, "mutation":key, "v": mutTotals[key]/num[key]}
+                insert = {"g": g, "mutation":key, "v": round(mutTotals[key]/num[key], 2)}
                 x = collection.insert_one(insert)
+                #print(insert)
         count += 1
         if count % 10000 == 0:
             print("Time at " + str(count) + "th loci: %s sec" %(round(time.time() - start_time, 2)))
