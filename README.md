@@ -5,4 +5,4 @@ Documents will be inserted in to a database named 'scATAC' and collection named 
 
 To run:
 1. Create python environment with pymongo python package.
-2. In directory, run ``` python unit_insert.py unit_1000.csv ```
+2. Run ``` python unit_insert.py unit_1000.csv ```
