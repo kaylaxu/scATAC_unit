@@ -33,8 +33,8 @@ g0 = {"chr1": 1,
       "chrM":3148000000}
 
 client = MongoClient("mongodb://localhost:27017")
-db = client["scATAC"]
-collection = db["UNIT"]
+db = client["foundinpd"]
+collection = db["MATC"]
 
 # cell type dictionary
 cellTypes = {}
@@ -93,7 +93,7 @@ with open(sys.argv[1]) as f:
                     mutTotals[mutKey] = v
 
             for key in mutTotals:
-                insert = {"g": g, "mutation":key, "v": round(mutTotals[key]/num[key], 2)}
+                insert = {"g0": g,"gene": line[0],  "m":key, "t":mutTotals[key],"n":num[key],"v": round(mutTotals[key]/num[key], 4)}
                 x = collection.insert_one(insert)
                 #print(insert)
         count += 1

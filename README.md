@@ -1,7 +1,7 @@
 # scATAC_unit
-Unit test files and script for scATAC mongodb insert. 
+Unit test files and script for scATAC from multiome mongodb insert. 
 
-Documents will be inserted in to a database named 'scATAC' and collection named 'UNIT'.
+Documents will be inserted in to a database named 'foundinpd' and collection named 'MATC'.
 
 Test file unit_1000.csv contains counts for 1,000 ATAC loci across 4,863 PFPP cells (9.4 MB).
 
