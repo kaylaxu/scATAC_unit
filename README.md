@@ -7,5 +7,6 @@ Test file unit_1000.csv contains counts for 1,000 ATAC loci across 4,863 PFPP ce
 
 To run:
 1. Create a python environment with pymongo python package.
-2. Run ``` python unit_insert.py unit_1000.csv ``` to insert documents split by both mutation status (e.g. isoLRRK2, GBA_N370S, etc.) and cell type (ie. PFPP)
-3. Run ``` python byMut_insert.py unit_1000.csv ``` to insert documents split by only mutation status (e.g. isoLRRK2, GBA_N370S, etc.) 
+2. Run ``` python atac_insert.py unit_1000.csv ``` to insert documents split by both mutation status (e.g. isoLRRK2, GBA_N370S, etc.) and cell type (ie. PFPP)
+3. Run ``` python atac_byMut.py unit_1000.csv ``` to insert documents split by only mutation status (e.g. isoLRRK2, GBA_N370S, etc.) 
+4. Run ``` python atac_byCell.py unit_1000.csv ``` to insert documents split by cell type (i.e. PFPP, NEP, etc.)

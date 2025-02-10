@@ -62,7 +62,7 @@ with open('sample_meta.csv') as f:
 
 num = {}
 cellID = ""
-mutKeys = {}
+keys = {}
 count = 0
 start_time = time.time()
 with open(sys.argv[1]) as f:
@@ -72,27 +72,27 @@ with open(sys.argv[1]) as f:
         if header:
             cellID = line
             for i in range(1, len(cellID)):
-                mutKeys[cellID[i]] = cellTypes[cellID[i]]+"-"+mutations[cellID[i].split('_')[1]]
-                if mutKeys[cellID[i]] in num:
-                    num[mutKeys[cellID[i]]] += 1
+                keys[cellID[i]] = cellTypes[cellID[i]]+"-"+mutations[cellID[i].split('_')[1]]
+                if keys[cellID[i]] in num:
+                    num[keys[cellID[i]]] += 1
                 else:
-                    num[mutKeys[cellID[i]]] = 1
+                    num[keys[cellID[i]]] = 1
             header = False
         else:
-            mutTotals = {}
+            totals = {}
             loc = line[0].split("-")
             g = int(loc[1]) + g0[loc[0]]
             for i in range(1, len(cellID)):
                 v = int(line[i])
-                mutKey = mutKeys[cellID[i]]
-                if mutKey in mutTotals:
-                    mutTotals[mutKey] += v
+                key = keys[cellID[i]]
+                if key in totals:
+                    totals[key] += v
                 else:
-                    mutTotals[mutKey] = v
+                    totals[key] = v
 
-            for key in mutTotals:
-                if mutTotals[key]>0:
-                    insert = {"g0": g,"gene": line[0], "c": key.split('-')[0], "m":key.split('-')[1], "t":mutTotals[key],"n":num[key],"v": round(mutTotals[key]/num[key], 4)}
+            for key in totals:
+                if totals[key]>0:
+                    insert = {"g0": g,"gene": line[0], "c": key.split('-')[0], "m":key.split('-')[1], "t":totals[key],"n":num[key],"v": round(totals[key]/num[key], 4)}
                     x = collection.insert_one(insert)
                     #print(insert)
         count += 1
